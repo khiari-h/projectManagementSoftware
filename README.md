@@ -5,11 +5,11 @@ Building a project management software using a one page interaction with React
 
 The steps of this project are as follows:
 
-Needs analysis: Estimate the necessary and optional features for this software.
-Plan the implementation of this project.
-Design the architecture.
-Develop the application.
-Test and validate.
+- Needs analysis: Estimate the necessary and optional features for this software
+- Plan the implementation of this project
+- Design the architecture
+- Develop the application
+- Test and validate
 
 In french:
 
