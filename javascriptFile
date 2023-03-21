@@ -103,3 +103,21 @@ form.addEventListener('submit', e => {
 // Afficher la liste initiale des produits lors du chargement de la page
 displayProducts();
 
+// Fonction pour sauvegarder les produits dans le stockage local
+function saveProducts() {
+  localStorage.setItem('products', JSON.stringify(products));
+}
+
+// Fonction pour charger les produits depuis le stockage local
+function loadProducts() {
+  const storedProducts = localStorage.getItem('products');
+  if (storedProducts) {
+    products = JSON.parse(storedProducts);
+    displayProducts();
+  }
+}
+
+// Appeler la fonction pour charger les produits lors du chargement de la page
+loadProducts();
+
+
