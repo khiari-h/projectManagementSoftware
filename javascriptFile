@@ -1,0 +1,27 @@
+// app.js
+
+// Sélectionner les éléments HTML
+const form = document.querySelector('form');
+const productList = document.querySelector('#productList');
+
+// Fonction pour ajouter un produit
+function addProduct(e) {
+   e.preventDefault();
+
+   // Récupérer les valeurs du formulaire
+   const productName = document.querySelector('#productName').value;
+   const productQuantity = document.querySelector('#productQuantity').value;
+
+   // Créer un élément de liste pour le nouveau produit
+   const li = document.createElement('li');
+   li.innerHTML = `<span>${productName}</span> <span>${productQuantity}</span>`;
+
+   // Ajouter l'élément de liste à la liste des produits
+   productList.appendChild(li);
+
+   // Réinitialiser le formulaire
+   form.reset();
+}
+
+// Écouter le formulaire pour l'événement de soumission
+form.addEventListener('submit', addProduct);
