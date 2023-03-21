@@ -1,5 +1,3 @@
-const { useState } = React;
-
 function App() {
   const [inventory, setInventory] = useState([
     { name: "Product 1", quantity: 10, price: 5 },
@@ -63,4 +61,28 @@ function App() {
       </table>
       <form onSubmit={(e) => {
         e.preventDefault();
-        const name = e
+        const name = e.target.elements.name.value;
+        const quantity = Number(e.target.elements.quantity.value);
+        const price = Number(e.target.elements.price.value);
+        handleAddItem(name, quantity, price);
+        e.target.reset();
+      }}>
+        <label>
+          Nom du produit :
+          <input type="text" name="name" />
+        </label>
+        <label>
+          Quantité :
+          <input type="number" name="quantity" />
+        </label>
+        <label>
+          Prix unitaire :
+          <input type="number" name="price" step="0.01" />
+        </label>
+        <button type="submit">Ajouter</button>
+      </form>
+    </div>
+  );
+}
+
+ReactDOM.render(<App />, document.getElementById('root'));
