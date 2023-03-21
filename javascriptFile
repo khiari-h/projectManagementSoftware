@@ -25,3 +25,81 @@ function addProduct(e) {
 
 // Écouter le formulaire pour l'événement de soumission
 form.addEventListener('submit', addProduct);
+
+// Définir la structure de données pour stocker les produits
+const products = [];
+
+// Fonction pour ajouter un produit
+function addProduct(productName, productQuantity) {
+   // Valider les données
+   if (productName.trim() === '' || productQuantity <= 0) {
+      alert('Veuillez saisir un nom de produit valide et une quantité supérieure à zéro.');
+      return;
+   }
+
+   // Vérifier si le produit existe déjà
+   const existingProductIndex = products.findIndex(product => product.name === productName);
+
+   if (existingProductIndex >= 0) {
+      // Si le produit existe déjà, ajoutez simplement la quantité à la quantité existante
+      products[existingProductIndex].quantity += Number(productQuantity);
+   } else {
+      // Sinon, créez un nouvel objet de produit et ajoutez-le à la liste des produits
+      const newProduct = {
+         name: productName,
+         quantity: Number(productQuantity)
+      };
+
+      products.push(newProduct);
+   }
+
+   // Afficher la liste mise à jour des produits
+   displayProducts();
+}
+
+// Fonction pour afficher la liste des produits
+function displayProducts() {
+   const productList = document.querySelector('#productList');
+   productList.innerHTML = '';
+
+   products.forEach(product => {
+      const li = document.createElement('li');
+      li.innerHTML = `<span>${product.name}</span> <span>${product.quantity}</span>`;
+
+      // Ajouter un bouton de suppression pour chaque produit
+      const deleteButton = document.createElement('button');
+      deleteButton.textContent = 'Supprimer';
+      deleteButton.classList.add('deleteButton');
+      deleteButton.addEventListener('click', () => {
+         deleteProduct(product.name);
+      });
+      li.appendChild(deleteButton);
+
+      productList.appendChild(li);
+   });
+}
+
+// Fonction pour supprimer un produit
+function deleteProduct(productName) {
+   const productIndex = products.findIndex(product => product.name === productName);
+   products.splice(productIndex, 1);
+
+   displayProducts();
+}
+
+// Écouter le formulaire pour l'événement de soumission
+const form = document.querySelector('form');
+form.addEventListener('submit', e => {
+   e.preventDefault();
+
+   const productName = document.querySelector('#productName').value;
+   const productQuantity = document.querySelector('#productQuantity').value;
+
+   addProduct(productName, productQuantity);
+
+   form.reset();
+});
+
+// Afficher la liste initiale des produits lors du chargement de la page
+displayProducts();
+
