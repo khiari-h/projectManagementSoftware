@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 
 function App() {
-  const [inventory, setInventory] = useState([
-    { name: "Product 1", quantity: 10, price: 5 },
-    { name: "Product 2", quantity: 20, price: 10 },
-    { name: "Product 3", quantity: 30, price: 15 }
-  ]);
+  const [inventory, setInventory] = useState([]);
+
+  useEffect(() => {
+    fetch("https://my-json-server.typicode.com/typicode/demo/posts")
+      .then(response => response.json())
+      .then(data => {
+        const products = data.map(item => {
+          return { name: item.title, quantity: item.id, price: item.id * 5 }
+        });
+        setInventory(products);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }, []);
 
   const calculateTotal = () => {
     return inventory.reduce((total, item) => {
@@ -26,12 +36,18 @@ function App() {
   };
 
   const handleRefresh = () => {
-    setInventory([
-      { name: "Product 1", quantity: 10, price: 5 },
-      { name: "Product 2", quantity: 20, price: 10 },
-      { name: "Product 3", quantity: 30, price: 15 }
-    ]);
-  }
+    fetch("https://my-json-server.typicode.com/typicode/demo/posts")
+      .then(response => response.json())
+      .then(data => {
+        const products = data.map(item => {
+          return { name: item.title, quantity: item.id, price: item.id * 5 }
+        });
+        setInventory(products);
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
 
   return (
     <div>
