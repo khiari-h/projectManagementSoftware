@@ -37,7 +37,12 @@ function App() {
 
   const handleRefresh = () => {
     fetch("https://my-json-server.typicode.com/typicode/demo/posts")
-      .then(response => response.json())
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
       .then(data => {
         const products = data.map(item => {
           return { name: item.title, quantity: item.id, price: item.id * 5 }
@@ -48,7 +53,6 @@ function App() {
         console.error(error);
       });
   };
-
   return (
     <div>
       <h1>Gestion de stocks</h1>
