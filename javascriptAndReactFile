@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 
 function App() {
@@ -24,6 +24,14 @@ function App() {
     newInventory.splice(index, 1);
     setInventory(newInventory);
   };
+
+  const handleRefresh = () => {
+    setInventory([
+      { name: "Product 1", quantity: 10, price: 5 },
+      { name: "Product 2", quantity: 20, price: 10 },
+      { name: "Product 3", quantity: 30, price: 15 }
+    ]);
+  }
 
   return (
     <div>
@@ -84,6 +92,7 @@ function App() {
         </label>
         <button type="submit">Ajouter</button>
       </form>
+      <button onClick={handleRefresh}>Actualiser</button>
     </div>
   );
 }
